@@ -1,0 +1,16 @@
+<html>
+  <head>
+    {% macro render_select(val_list, select_name, selected_num) %}
+      <select name={{select_name}}>
+        {% for i in range(val_list|length) %}
+          <option value={{i}} {% if selected_num == i %} selected {% endif %}>
+            {{val_list[i]}}
+          </option>
+        {% endfor %}
+      </select>
+    {% endmacro %}
+  </head>
+  <body>
+    {{ render_select(val_list, select_name, selected_num) }}
+  </body>
+</html>

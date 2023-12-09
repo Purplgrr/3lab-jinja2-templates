@@ -1,0 +1,44 @@
+<html>
+  <head>
+    {% macro render_table(books, n) %}
+        {% set flag = (n < 1 or n >= books|length) %}
+        {% set point = books|length if flag else n//2 %}
+        <table>
+            <tr>
+                <th>title</th>
+                <th>author</th>
+                <th>price</th>
+            </tr>
+            {% for book in books[:point] %}
+                <tr>
+                    <td>{{ book["title"] }}</td>
+                    <td>{{ book["author"] }}</td>
+                    <td>{{ book["price"] }}</td>
+                </tr>
+            {% endfor %}
+            {% if not flag %}
+                <tr>
+                    <td>
+                        ...
+                    </td>
+                </tr>
+                <tr>
+                    <th>title</th>
+                    <th>author</th>
+                    <th>price</th>
+                </tr>
+                {% for book in books[-point-(n%2):] %}
+                    <tr>
+                        <td>{{ book["title"] }}</td>
+                        <td>{{ book["author"] }}</td>
+                        <td>{{ book["price"] }}</td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
+        </table>
+    {% endmacro %}
+  </head>
+  <body>
+    {{ render_table(books, n) }}
+  </body>
+</html>
